@@ -11,7 +11,7 @@ INSERT INTO Image (id, modificationCounter, name, content, contentType, mimeType
 
 
 INSERT INTO User (id, modificationCounter, name, email, phone, url, consent, token, validated, creationTime, identificator, idQueue) VALUES (1,1,'Peter','peter@mail.com','222333444','www.urldeprueba.com',true,'7d104727-ba80-4274-a6e6-89355a25941a',true,CURRENT_TIMESTAMP , 'aa33', 1233444);
-INSERT INTO User (id, modificationCounter, name, email, phone, url, consent, token, validated, creationTime, identificator, idQueue) VALUES (6,1,'Tam','tam@mail.com','66557788','www.urldeprueba2.com',true,'58bf2a2e-9aa1-4502-b0d1-d69f64d2d1d1', true,CURRENT_TIMESTAMP , 'aa34' , 1233444);
+INSERT INTO User (id, modificationCounter, name, email, phone, url, consent, token, validated, creationTime, identificator, idQueue) VALUES (2,1,'Tam','tam@mail.com','66557788','www.urldeprueba2.com',true,'58bf2a2e-9aa1-4502-b0d1-d69f64d2d1d1', true,CURRENT_TIMESTAMP , 'aa34' , 1233444);
 
 
 -- Two AccessCodes being attended for 2 queues (2 and 1233444)

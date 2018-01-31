@@ -119,6 +119,7 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
     return this.accessCodeDao;
   }
 
+  // Make AccessCode for normal user
   @Override
   public AccessCodeCto getVisitorAccessCode(String token) {
 
@@ -181,14 +182,7 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
 
     // Transfert user info to VisitorInfpo Table if consented
     if (user.getConsent()) {
-      VisitorInfoEntity visitorInfoEntity = new VisitorInfoEntity();
-      // Set info
-      visitorInfoEntity.setName(user.getName());
-      visitorInfoEntity.setPhone(user.getPhone());
-      visitorInfoEntity.setEmail(user.getEmail());
-      visitorInfoEntity.setQueueId(queue.getId());
-      // Save VisitorInfo
-      getVisitorInfoDao().save(visitorInfoEntity);
+      saveVisitorInfo(user, queue);
     }
 
     // Return AccessCodeCto
@@ -311,14 +305,7 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
 
     // Transfert user info to VisitorInfpo Table if consented
     if (user.getConsent()) {
-      VisitorInfoEntity visitorInfoEntity = new VisitorInfoEntity();
-      // Set info
-      visitorInfoEntity.setName(user.getName());
-      visitorInfoEntity.setPhone(user.getPhone());
-      visitorInfoEntity.setEmail(user.getEmail());
-      visitorInfoEntity.setQueueId(queue.getId());
-      // Save VisitorInfo
-      getVisitorInfoDao().save(visitorInfoEntity);
+      saveVisitorInfo(user, queue);
     }
 
     // Return AccessCodeCto
@@ -447,6 +434,19 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
     return code;
   }
 
+  // Save Visitor Info
+  private void saveVisitorInfo(UserEntity user, QueueEntity queue) {
+
+    VisitorInfoEntity visitorInfoEntity = new VisitorInfoEntity();
+    // Set info
+    visitorInfoEntity.setName(user.getName());
+    visitorInfoEntity.setPhone(user.getPhone());
+    visitorInfoEntity.setEmail(user.getEmail());
+    visitorInfoEntity.setQueueId(queue.getId());
+    // Save VisitorInfo
+    getVisitorInfoDao().save(visitorInfoEntity);
+  }
+
   /**
    * @return
    */
@@ -471,7 +471,7 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
     return this.queueDao;
   }
 
-  // Generate number's AccesCode's for mock/estimated time calcul
+  // Generate number's AccessCodes for mock/estimated time calculus for testing sake
 
   @Override
   public AccessCodeEto makeAccessCode(long number) {
@@ -479,6 +479,7 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
     // Get current time -- Use Date or Calendar instead of Timestamps?
     Timestamp currentTimestamp = Timestamp.from(Instant.now());
 
+    // Make priority accessCodes
     AccessCodeEto eto = new AccessCodeEto();
     eto.setPriority(true);
     eto.setQueueId((long) 1233444);
@@ -500,6 +501,7 @@ public class AccesscodemanagementImpl extends AbstractComponentFacade implements
       saveAccessCode(eto);
     }
 
+    // Make non-priority accessCodes
     eto.setPriority(false);
     for (int i = 0; i < (number / 2); i++) {
       eto.setName("Marie" + i);
